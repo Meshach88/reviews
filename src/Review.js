@@ -7,33 +7,48 @@ const Review = () => {
   const { name, image, text, job } = people[index];
 
   const checkNum = (number) => {
-    if (number > people.length-1) {
-      return 0
+    if (number > people.length - 1) {
+      return 0;
     }
     if (number < 0) {
-      return people.length-1
+      return people.length - 1;
+    } else {
+      return number;
     }
-    else{
-      return number
-    }
-  }
+  };
 
   const nextReview = () => {
-    setIndex((index)=> {
-      let newIndex = index + 1
-      return checkNum(newIndex)
-    })
-  }
+    setIndex((index) => {
+      let newIndex = index + 1;
+      return checkNum(newIndex);
+    });
+  };
   const prevReview = () => {
-    setIndex((index)=> {
-      let newIndex = index - 1
-      return checkNum(newIndex)
-    })
-  }
+    setIndex((index) => {
+      let newIndex = index - 1;
+      return checkNum(newIndex);
+    });
+  };
+  const randReview = () => {
+    setIndex((index) => {
+      let randIndex = Math.floor(Math.random() * people.length);
+      if (randIndex === index) {
+        randIndex = index + 1;
+      }
+      return checkNum(randIndex);
+    });
+    //   // OR
+    // let randIndex = Math.floor(Math.random() * people.length)
+    // if (randIndex===index){
+    //   randIndex = index + 1
+    // }
+    // setIndex(checkNum(randIndex))
+  };
+
   return (
     <article className="review">
       <div className="img-container">
-        <img src={image} alt={name} className="person-img"/>
+        <img src={image} alt={name} className="person-img" />
         <span className="quote-icon">
           <FaQuoteRight />
         </span>
@@ -42,10 +57,16 @@ const Review = () => {
       <p className="job">{job}</p>
       <p className="info">{text}</p>
       <div className="button-container">
-        <button onClick={prevReview} className="prev-btn"><FaChevronLeft/></button>
-        <button onClick={nextReview} className="next-btn"><FaChevronRight/></button>
+        <button onClick={prevReview} className="prev-btn">
+          <FaChevronLeft />
+        </button>
+        <button onClick={nextReview} className="next-btn">
+          <FaChevronRight />
+        </button>
       </div>
-        <button className="random-btn">Surprise me</button>
+      <button onClick={randReview} className="random-btn">
+        Surprise me
+      </button>
     </article>
   );
 };
